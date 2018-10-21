@@ -3,11 +3,13 @@ RM := rm -rf
 
 # Needed libs
 include system/deps.mk
+include freeRTOS/deps.mk
 DEFINE_DEVICE=__ADUCM362__
 SECONDARY_FLASH += $(TARGET_NAME).hex
 
 FLASH_INFO = system/src/cmsis/boot_vectors_362
-SRCS += app/main.cpp i2c/i2c_exec.cpp
+SRCS +=  i2c/i2c_exec.cpp
+C_SRCS +=  app/main.c app/rtos_def.c
 OBJECTS += $(SRCS:.cpp=.o)
 OBJECTS += $(C_SRCS:.c=.o)
 
@@ -44,7 +46,7 @@ $(TARGET_NAME).hex: $(TARGET_NAME).elf
 	@echo ' '
 
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(SECONDARY_FLASH)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(CPP_DEPS) $(TARGET_NAME).elf
+#	-$(RM) $(CC_DEPS)$(C++_DEPS)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(SECONDARY_FLASH)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(CPP_DEPS) $(TARGET_NAME).elf
 	rm -rf $(OBJECTS).o $(TARGET_NAME).map $(TARGET_NAME).elf $(TARGET_NAME).hex
 	-@echo ' '
 

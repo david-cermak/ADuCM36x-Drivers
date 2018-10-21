@@ -71,8 +71,8 @@ FreeRTOS.org versions prior to V4.4.0 did not include this definition. */
 #define portAIRCR_REG						( * ( ( volatile uint32_t * ) 0xE000ED0C ) )
 #define portMAX_8_BIT_VALUE					( ( uint8_t ) 0xff )
 #define portTOP_BIT_OF_BYTE					( ( uint8_t ) 0x80 )
-#define portMAX_PRIGROUP_BITS				( ( uint8_t ) 7 )
-#define portPRIORITY_GROUP_MASK				( 0x07UL << 8UL )
+#define portMAX_PRIGROUP_BITS				( ( uint8_t ) 5 )
+#define portPRIORITY_GROUP_MASK				( 0x04UL << 8UL )
 #define portPRIGROUP_SHIFT					( 8UL )
 
 /* Masks off all bits but the VECTACTIVE bits in the ICSR register. */
