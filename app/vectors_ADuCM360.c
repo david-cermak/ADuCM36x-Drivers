@@ -173,7 +173,7 @@ pHandler __isr_vectors[] = {
    COMMON_DebugMon_Handler,                         // Debug monitor handler
    0,                                        // Reserved
    COMMON_PendSV_Handler,                           // The PendSV handler
-   COMMON_SysTick_Handler,                          // The SysTick handler
+   SysTick_Handler,                          // The SysTick handler
 
    // ----------------------------------------------------------------------
    // ADuCM360 vectors

@@ -580,6 +580,7 @@ UsageFault_Handler_C (ExceptionStackFrame* frame __attribute__((unused)),
 
 #endif
 
+/*
 void __attribute__ ((section(".after_vectors"),weak))
 SVC_Handler (void)
 {
@@ -590,6 +591,7 @@ SVC_Handler (void)
     {
     }
 }
+*/
 
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
@@ -617,12 +619,12 @@ PendSV_Handler (void)
     }
 }
 
-void __attribute__ ((section(".after_vectors"),weak))
-SysTick_Handler (void)
-{
-  // DO NOT loop, just return.
-  // Useful in case someone (like STM HAL) inadvertently enables SysTick.
-  ;
-}
+//void __attribute__ ((section(".after_vectors"),weak))
+//SysTick_Handler (void)
+//{
+//  // DO NOT loop, just return.
+//  // Useful in case someone (like STM HAL) inadvertently enables SysTick.
+//  ;
+//}
 
 // ----------------------------------------------------------------------------

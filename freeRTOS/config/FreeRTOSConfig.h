@@ -28,7 +28,8 @@
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
-
+#include "adi_processor.h"
+#if 0
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -87,6 +88,7 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
+
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
 	/* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
@@ -115,6 +117,47 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 /* Normal assert() semantics without relying on the provision of an assert.h
 header file. */
 #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+#endif
+
+#define configUSE_PREEMPTION		1
+#define configUSE_IDLE_HOOK			0
+#define configUSE_TICK_HOOK			0
+#define configCPU_CLOCK_HZ			( ( unsigned long ) 20000000 )
+#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
+#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 70 )
+#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 7000 ) )
+#define configMAX_TASK_NAME_LEN		( 10 )
+#define configUSE_TRACE_FACILITY	0
+#define configUSE_16_BIT_TICKS		0
+#define configIDLE_SHOULD_YIELD		0
+#define configUSE_CO_ROUTINES 		0
+
+#define configMAX_PRIORITIES		( 5 )
+#define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
+
+/* Set the following definitions to 1 to include the API function, or zero
+to exclude the API function. */
+
+#define INCLUDE_vTaskPrioritySet		0
+#define INCLUDE_uxTaskPriorityGet		0
+#define INCLUDE_vTaskDelete				0
+#define INCLUDE_vTaskCleanUpResources	0
+#define INCLUDE_vTaskSuspend			0
+#define INCLUDE_vTaskDelayUntil			1
+#define INCLUDE_vTaskDelay				1
+
+
+#define configPRIO_BITS       		__NVIC_PRIO_BITS
+#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			0x01
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	0x01
+#define configKERNEL_INTERRUPT_PRIORITY 		( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
+#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
+#if 0
+#define configKERNEL_INTERRUPT_PRIORITY 		255
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY 	191 /* equivalent to 0xa0, or priority 5. */
+#endif
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */

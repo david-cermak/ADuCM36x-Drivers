@@ -16,9 +16,13 @@ _estack = __stack; 	/* STM specific definition */
  * Default stack sizes.
  * These are used by the startup in order to allocate stacks 
  * for the different modes.
+ 
+ 
+ ADUCM362:__Main_Stack_Size = 2048 ;
+ 
  */
 
-__Main_Stack_Size = 2048 ;
+__Main_Stack_Size = 1024 ;
 
 PROVIDE ( _Main_Stack_Size = __Main_Stack_Size ) ;
 

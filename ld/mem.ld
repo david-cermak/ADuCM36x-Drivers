@@ -16,9 +16,8 @@ MEMORY
   FLASH_VEC (rx) : ORIGIN = 0x00000000, LENGTH = 4K
   FLASH_DES (rx) : ORIGIN = 0x00001000, LENGTH = 1K
   FLASH (rx)     : ORIGIN = 0x00001800, LENGTH = 128K
-/*  FLASH     (rx) : ORIGIN = 0x00001000, LENGTH = 1K */
-  RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 0x04000
-
+  RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 0x1000
+  
   /*
    * Optional sections; define the origin and length to match
    * the the specific requirements of your hardware. The zero

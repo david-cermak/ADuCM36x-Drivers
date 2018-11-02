@@ -38,28 +38,40 @@
 
 
 // ----------------------------------------------------------------------------
-
+#define TIMER_FREQUENCY_HZ (1000u)
 // ----- main() ---------------------------------------------------------------
+static	int i =0;
 
 static void check_task( void *pvParameters )
 {
 	int x = 0;
 	while (1)
 	{
-		x ++;
+		i++;
+	    if (i%2)
+	       {GP0SET_SET1_BBA = 1;}
+	    else
+	       {GP0CLR_CLR1_BBA = 1;}
+
 		vTaskDelay( 10 );
 	}
 }
 
+
 int
 main()
 {
+	SystemCoreClockUpdate(); // SystemCoreClock in bss, cleared by _start
+	SysTick_Config(SystemCoreClock / TIMER_FREQUENCY_HZ);
 
-	NVIC_SetPriorityGrouping( 0 );
-//	NVIC_SetPriority( SysTick_IRQn, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY );
-//	NVIC_EnableIRQ(SysTick_IRQn);
+	// Setup GPIO
+	pADI_GP0->GPCON = (pADI_GP0->GPCON & ~GP0CON_CON1_MSK) | GP0CON_CON1_GPIO;
+	GP0OEN_OEN1_BBA = 1;
+
+	// Create simple task
 	xTaskCreate( check_task, "Check", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 
+	// Start freeRTOS
 	vTaskStartScheduler();
 
 	return 0;
